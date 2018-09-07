@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: hello-consumer
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:50001/eureka/ #给与服务消费者通过服务中心发现服务的能力
+
+server:
+  port: 9000
+
