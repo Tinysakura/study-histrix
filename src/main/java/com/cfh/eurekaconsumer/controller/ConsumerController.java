@@ -25,4 +25,6 @@ public class ConsumerController {
     public String consumer1(){
         return helloService.helloService();
     }
+
+
 }
