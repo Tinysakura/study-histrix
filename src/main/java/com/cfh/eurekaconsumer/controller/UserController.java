@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 public class UserController {
     @Autowired
@@ -23,5 +26,24 @@ public class UserController {
     @RequestMapping(value = "/user/update/{id}")
     public void updateUser(@PathVariable("id") Integer id){
         userService.updateUser(id);
+    }
+
+    @RequestMapping("/user/collapser")
+    public List<User> testCollapser() throws Exception{
+        List<User> users = new ArrayList<>();
+
+        User user1 = userService.findUser2(1);
+        User user2 = userService.findUser2(2);
+
+        //故意让线程sleep3000ms以错过请求窗口的合并时间
+        Thread.sleep(3000);
+
+        User user3 = userService.findUser2(1);
+
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+
+        return users;
     }
 }
